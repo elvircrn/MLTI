@@ -63,14 +63,13 @@ int main()
 
 	for (int i = 0; i < (1<<n); i++, cout << endl)
 	{
-		cout << binStr(i, n - 1) << "   ";
-		for (int power = 1, j = 0; j < column; j++, power *= 2)
-			cout << setw(5) << matrix [i] [j];
+		cout << setw(3) << i << " " << binStr(i, n - 1) << "   ";
+		for (int power = 1, j = 0; j <= column; j++, power *= 2)
+			if (j != column)
+                cout << setw(5) << matrix [i] [j];
+            else if (values [i])
+                cout << " " << getLiteral(i, n);
 	}
-
-	for (int i = 0; i < (1<<n); i++)
-		if (values [i])
-			cout << getLiteral(i, n) << endl;
 
 	return 0;
 }
