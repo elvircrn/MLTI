@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1459633091 source:c:\users\elvircrn\documents\codes\zadaca 5\asdfasdfsdf\main.cpp
+	<iostream>
+	<cstdio>
+	<cstdlib>
+	<algorithm>
+	<vector>
+	<cmath>
+	<sstream>
+	<iomanip>
+	<cstring>
+
