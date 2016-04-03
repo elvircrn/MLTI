@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1459677333 source:c:\users\elvircrn\documents\codes\mlti\zadaca2zadatak4\main.cpp
+	<iostream>
+	<cstdio>
+	<cstdlib>
+	<algorithm>
+	<vector>
+	<cmath>
+	<sstream>
+	<iomanip>
+	<cstring>
+

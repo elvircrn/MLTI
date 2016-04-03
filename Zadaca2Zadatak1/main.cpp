@@ -54,7 +54,7 @@ int main()
         for(int i = 0; i < (1<<n); i++)
 		{
             if ((i & j) == j)
-                values [i] ^= values [i-j];
+                values [i] ^= values [i - j];
 			matrix [i] [column] = values [i];
 		}
 
