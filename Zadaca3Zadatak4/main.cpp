@@ -76,8 +76,8 @@ vector <pair <int, int> > getEdge (const vector <vector <bool> > &mat)
 	vector <pair <int, int> > edges;
 	int n = mat.size();
 	int m = mat [0].size();
-	for (int i = 0; i < n - 1; i++)
-		for (int j = i + 1; j < n; j++)
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++)
 			if (mat [i] [j])
 				edges.emplace_back(i + 1, j + 1);
 	return edges;
@@ -159,6 +159,10 @@ int main()
 
 	cout << "R*" << endl;
 	printMatrix(starMe(R1));
+	cout << endl;
+
+	cout << "graph" << endl;
+	printGraph(getEdge(R1));
 	cout << endl;
 
     return 0;

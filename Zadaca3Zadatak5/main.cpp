@@ -10,7 +10,7 @@ using namespace std;
 using Edge = pair <int, int>;
 using Graph = vector <Edge>;
 
-template <class T> 
+template <class T>
 	using Matrix = std::vector <std::vector <T> >;
 
 template <class T>
@@ -29,10 +29,27 @@ void printMatrix (Matrix <T> mat)
 	return;
 }
 
+vector <Edge> getEdges(Matrix<bool> m)
+{
+    vector <Edge> v;
+    for (int i = 0; i < m.size(); i++)
+        for (int j = 0; j < m.size(); j++)
+            if (m [i] [j])
+                v.emplace_back(i, j);
+    return v;
+}
+
 void printGraph(Graph g)
 {
+    cout << "{";
 	for (auto e : g)
-		cout << e.first << ' ' << e.second << endl;
+		cout << " (" << e.first << ", " << e.second << ")";
+    cout << " }" << endl;
+}
+
+void printGraph(Matrix<bool> m)
+{
+    printGraph(getEdges(m));
 }
 
 Matrix<bool> composition (Matrix <bool> a, Matrix<bool> b)
@@ -146,34 +163,56 @@ int main()
 	cout << "R" << endl;
 	printMatrix(R);
 	cout << endl;
+	cout << "R = "; printGraph(R);
+
+	cout << endl;
 
 	cout << "R^-1" << endl;
 	printMatrix(power(R, -1));
+	cout << endl;
+	cout << "R^-1 = "; printGraph(power(R, -1));
+
 	cout << endl;
 
 	cout << "R^2" << endl;
 	printMatrix(power(R, 2));
 	cout << endl;
-	
+	cout << "R^2 = "; printGraph(power(R, 2));
+
+	cout << endl;
+
 	cout << "R^3" << endl;
 	printMatrix(power(R, 3));
+	cout << endl;
+	cout << "R^3 = "; printGraph(power(R, 3));
+
 	cout << endl;
 
 	cout << "R+" << endl;
 	printMatrix(plusMe(R));
 	cout << endl;
+	cout << "R+ = "; printGraph(plusMe(R));
+
+	cout << endl;
 
 	cout << "R*" << endl;
 	printMatrix(starMe(R));
+	cout << endl;
+	cout << "R* = "; printGraph(starMe(R));
+
 	cout << endl;
 
 	cout << "R o R^-1" << endl;
 	printMatrix(composition(R, power(R, -1)));
 	cout << endl;
+	cout << "R o R^-1 = "; printGraph(composition(R, power(R, -1)));
+
+	cout << endl;
 
 	cout << "R^2 o R^-1" << endl;
 	printMatrix(composition(power(R, 2), power(R, -1)));
 	cout << endl;
+	cout << "R^2 o R^-1 = "; printGraph(composition(power(R, 2), power(R, -1)));
 
 
 
