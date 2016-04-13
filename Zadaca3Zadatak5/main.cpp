@@ -105,7 +105,7 @@ Matrix<bool> power (Matrix <bool> a, int p)
 	vector <vector <bool> > ret = a;
 	if (p == -1)
 	{
-		for (int i = 0; i < a.size() - 1; i++)
+		for (int i = 0; i < a.size(); i++)
 			for (int j = 0; j < i; j++)
 			{
 				bool x = ret [i] [j];
