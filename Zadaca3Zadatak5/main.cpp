@@ -40,9 +40,14 @@ Matrix<bool> composition (Matrix <bool> a, Matrix<bool> b)
 	auto ret = createMatrix<bool>(a.size(), a.size());
 	for (int i = 0; i < a.size(); i++)
 		for (int j = 0; j < a.size(); j++)
+		{
+			bool what = false;
+
 			for (int k = 0; k < a.size(); k++)
-				if (a [i] [j] & b [j] [k])
-					ret [i] [k] = true;
+				what |= (a [i] [k] & b [k] [j]);
+
+			ret [i] [j] = what;
+		}
 	return ret;
 }
 
@@ -64,18 +69,6 @@ void relate(Matrix<bool> &mat, Graph g)
 {
 	for (Edge e : g)
 		mat [e.first - 1] [e.second - 1] = true;
-}
-
-Matrix<bool> powerMe(const Matrix<bool> &a)
-{
-	auto ret = a;
-	int n = a.size();
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++)
-			for (int k = 0; k < n; k++)
-				if (ret [i] [j] & ret [j] [k])
-					ret [i] [k] = true;
-	return ret;
 }
 
 vector <pair <int, int> > getEdge (const vector <vector <bool> > &mat)
@@ -150,6 +143,10 @@ int main()
 	auto R = createMatrix<bool> (6, 6);
 	relate(R, { { 1, 4 }, { 2, 1 }, { 4, 4 }, { 5, 1 }, { 6, 4 } });
 
+	cout << "R" << endl;
+	printMatrix(R);
+	cout << endl;
+
 	cout << "R^-1" << endl;
 	printMatrix(power(R, -1));
 	cout << endl;
@@ -158,6 +155,10 @@ int main()
 	printMatrix(power(R, 2));
 	cout << endl;
 	
+	cout << "R^3" << endl;
+	printMatrix(power(R, 3));
+	cout << endl;
+
 	cout << "R+" << endl;
 	printMatrix(plusMe(R));
 	cout << endl;
@@ -165,6 +166,16 @@ int main()
 	cout << "R*" << endl;
 	printMatrix(starMe(R));
 	cout << endl;
+
+	cout << "R o R^-1" << endl;
+	printMatrix(composition(R, power(R, -1)));
+	cout << endl;
+
+	cout << "R^2 o R^-1" << endl;
+	printMatrix(composition(power(R, 2), power(R, -1)));
+	cout << endl;
+
+
 
     return 0;
 }

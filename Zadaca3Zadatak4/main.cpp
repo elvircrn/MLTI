@@ -37,17 +37,21 @@ void printGraph(Graph g)
 
 Matrix<bool> composition (Matrix <bool> a, Matrix<bool> b)
 {
-
 	auto ret = createMatrix<bool>(a.size(), a.size());
 	for (int i = 0; i < a.size(); i++)
 		for (int j = 0; j < a.size(); j++)
+		{
+			bool what = false;
+
 			for (int k = 0; k < a.size(); k++)
-				if (a [i] [j] & b [j] [k])
-					ret [i] [k] = true;
+				what |= (a [i] [k] & b [k] [j]);
+
+			ret [i] [j] = what;
+		}
 	return ret;
 }
 
-void relate(vector <vector <bool> > &mat, vector <int> r)
+void relate(Matrix<bool> &mat, vector <int> r)
 {
 	for (int &x : r)
 		x--;
@@ -61,16 +65,10 @@ void relate(vector <vector <bool> > &mat, vector <int> r)
 	}
 }
 
-Matrix<bool> powerMe(const Matrix<bool> &a)
+void relate(Matrix<bool> &mat, Graph g)
 {
-	auto ret = a;
-	int n = a.size();
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++)
-			for (int k = 0; k < n; k++)
-				if (ret [i] [j] & ret [j] [k])
-					ret [i] [k] = true;
-	return ret;
+	for (Edge e : g)
+		mat [e.first - 1] [e.second - 1] = true;
 }
 
 vector <pair <int, int> > getEdge (const vector <vector <bool> > &mat)
@@ -123,8 +121,6 @@ Matrix<bool> starMe(Matrix<bool> a)
 	return a;
 }
 
-
-
 vector <int> getVertices (Matrix<bool> m)
 {
 	vector <int> v;
@@ -145,17 +141,16 @@ vector <int> getVertices (Matrix<bool> m)
 int main()
 {
 	auto R1 = createMatrix<bool> (6, 6);
-
 	relate (R1, { 3, 4, 5 });
-	relate (R1, { 1, 2 });
-	relate (R1, { 6 });
+	relate (R1, vector <int> ({ 1, 2 }));
+	relate (R1, vector <int> ({ 6 }));
 
 	cout << "R^-1" << endl;
 	printMatrix(power(R1, -1));
 	cout << endl;
 
 	cout << "R^2" << endl;
-	printMatrix(power(R1, 2));
+	printMatrix(power(R1,  2));
 	cout << endl;
 
 	cout << "R+" << endl;
