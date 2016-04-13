@@ -42,8 +42,17 @@ vector <Edge> getEdges(Matrix<bool> m)
 void printGraph(Graph g)
 {
     cout << "{";
+    bool first = true;
 	for (auto e : g)
-		cout << " (" << e.first + 1 << ", " << e.second + 1 << ")";
+    {
+        if (first)
+        {
+            cout << " (" << e.first + 1 << ", " << e.second + 1 << ")";
+            first = false;
+        }
+        else
+            cout << ", (" << e.first + 1 << ", " << e.second + 1 << ")";
+    }
     cout << " }" << endl;
 }
 
