@@ -29,6 +29,14 @@ void printMatrix (Matrix <T> mat)
 	return;
 }
 
+Matrix<bool> getI(int n)
+{
+    auto ret = createMatrix<bool>(n, n);
+    for (int i = 0; i < n; i++)
+        ret [i] [i] = true;
+    return ret;
+}
+
 vector <Edge> getEdges(Matrix<bool> m)
 {
     vector <Edge> v;
@@ -133,18 +141,31 @@ Matrix<bool> power (Matrix <bool> a, int p)
 	return ret;
 }
 
+Matrix<bool> operator + (Matrix <bool> a, Matrix <bool> b)
+{
+    auto ret = createMatrix<bool> (a.size(), a.size());
+    int n = a.size();
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            ret [i] [j] = a [i] [j] | b [i] [j];
+    return ret;
+}
 
 Matrix<bool> plusMe(Matrix <bool> a)
 {
-	return power (a, LAZY);
+    auto h = a;
+    auto ret = a;
+    for (int i = 0; i < LAZY; i++)
+    {
+        a = composition(a, h);
+        ret = ret + a;
+    }
+	return ret;
 }
 
 Matrix<bool> starMe(Matrix<bool> a)
 {
-	auto ret = plusMe(a);
-	for (int i = 0; i < a [0].size(); i++)
-		a [i] [i] = true;
-	return a;
+	return plusMe(a) + getI(a.size());
 }
 
 vector <int> getVertices (Matrix<bool> m)
