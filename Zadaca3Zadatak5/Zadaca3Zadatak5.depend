@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1460513566 source:c:\users\elvircrn\documents\codes\mlti\zadaca3zadatak5\main.cpp
+	<iostream>
+	<vector>
+	<algorithm>
+	<utility>
+

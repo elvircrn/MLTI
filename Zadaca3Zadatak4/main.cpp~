@@ -37,7 +37,7 @@ void printGraph(Graph g)
 
 Matrix<bool> composition (Matrix <bool> a, Matrix<bool> b)
 {
-	auto ret = createMatrix<bool>(a.size(), a.size());
+	auto ret = createMatrix(a.size(), a.size());
 	for (int i = 0; i < a.size(); i++)
 		for (int j = 0; j < a.size(); j++)
 			for (int k = 0; k < a.size(); k++)
@@ -46,7 +46,7 @@ Matrix<bool> composition (Matrix <bool> a, Matrix<bool> b)
 	return ret;
 }
 
-void relate(Matrix<bool> &mat, vector <int> r)
+void relate(vector <vector <bool> > &mat, vector <int> r)
 {
 	for (int &x : r)
 		x--;
@@ -58,12 +58,6 @@ void relate(Matrix<bool> &mat, vector <int> r)
 			mat [r [j]] [r [i]] = true;
 		}
 	}
-}
-
-void relate(Matrix<bool> &mat, Graph g)
-{
-	for (Edge e : g)
-		mat [e.first - 1] [e.second - 1] = true;
 }
 
 Matrix<bool> powerMe(const Matrix<bool> &a)
@@ -128,6 +122,8 @@ Matrix<bool> starMe(Matrix<bool> a)
 	return a;
 }
 
+
+
 vector <int> getVertices (Matrix<bool> m)
 {
 	vector <int> v;
@@ -147,28 +143,30 @@ vector <int> getVertices (Matrix<bool> m)
 
 int main()
 {
-	auto R = createMatrix<bool> (6, 6);
-	relate(R, { { 1, 4 }, { 2, 1 }, { 4, 4 }, { 5, 1 }, { 6, 4 } });
+	auto R1 = createMatrix<bool> (6, 6);
+
+	relate (R1, { 3, 4, 5 });
+	relate (R1, { 1, 2 });
+	relate (R1, { 6 });
 
 	cout << "R^-1" << endl;
-	printMatrix(power(R, -1));
+	printMatrix(power(R1, -1));
 	cout << endl;
 
 	cout << "R^2" << endl;
-	printMatrix(power(R, 2));
+	printMatrix(power(R1, 2));
 	cout << endl;
 	
 	cout << "R+" << endl;
-	printMatrix(plusMe(R));
+	printMatrix(plusMe(R1));
 	cout << endl;
 
 	cout << "R*" << endl;
-	printMatrix(starMe(R));
+	printMatrix(starMe(R1));
 	cout << endl;
 
     return 0;
 }
-
 
 
 
