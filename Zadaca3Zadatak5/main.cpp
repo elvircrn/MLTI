@@ -43,7 +43,7 @@ void printGraph(Graph g)
 {
     cout << "{";
 	for (auto e : g)
-		cout << " (" << e.first << ", " << e.second << ")";
+		cout << " (" << e.first + 1 << ", " << e.second + 1 << ")";
     cout << " }" << endl;
 }
 
